@@ -12,17 +12,17 @@ public class Main
         personas[2] = new Persona("Pedro", 30);
         
         // Mostrar información de cada persona
-        for(int i = 0; i < personas.length; i++) 
+        for(Persona persona : personas) 
         {
-            System.out.println("Nombre: " + personas[i].getNombre());
-            System.out.println("Edad: " + personas[i].getEdad());
-            if(personas[i].esMayorDeEdad()) 
+            System.out.println("Nombre: " + persona.getNombre());
+            System.out.println("Edad: " + persona.getEdad());
+            if(persona.esMayorDeEdad()) 
             {
-                System.out.println(personas[i].getNombre() + " es mayor de edad.");
+                System.out.println(persona.getNombre() + " es mayor de edad.");
             } 
             else 
             {
-                System.out.println(personas[i].getNombre() + " es menor de edad.");
+                System.out.println(persona.getNombre() + " es menor de edad.");
             }
         }
 

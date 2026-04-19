@@ -26,8 +26,9 @@ public class Usuario
      *    @brief Método para prestar un libro a un usuario. 
      *           Verifica si el usuario ha alcanzado su límite de libros prestados antes de agregar el libro al arreglo de libros prestados.
      *    @param libro El libro que se desea prestar al usuario.
+     *    @return true si el libro fue prestado exitosamente, false si el usuario ha alcanzado su límite de libros prestados.
      */
-    public void prestar(Libro libro)
+    public boolean prestar(Libro libro)
     {
         int librosPrestadosCount = 0;
         for (Libro libroPrestado : librosPrestados) 
@@ -41,7 +42,7 @@ public class Usuario
         if(librosPrestadosCount >= cantidadMaximaLibros)
         {
             System.out.println("No se puede prestar el libro " + libro.getTitulo() + " a " + nombre + ". El usuario ha alcanzado su límite de libros prestados.");
-            return;
+            return false;
         }
         
         for (int i = 0; i < librosPrestados.length; i++) 
@@ -50,11 +51,10 @@ public class Usuario
             {
                 librosPrestados[i] = libro; // Agrega el libro al arreglo de libros prestados del usuario.
                 System.out.println("Libro " + libro.getTitulo() + " prestado a " + nombre + ".");
-                break;
+                return true; // Sale del bucle después de agregar el libro. Para que no se agregue el mismo libro varias veces si hay espacio para más de un libro.
             }
         }
-        
-        
+        return false; 
     }
 
     /*!

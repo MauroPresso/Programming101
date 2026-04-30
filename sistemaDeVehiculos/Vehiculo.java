@@ -1,6 +1,6 @@
 package sistemaDeVehiculos;
 
-public abstract class Vehiculo 
+public abstract class Vehiculo implements Conducible
 {
     private String marca;
     private String modelo;
@@ -25,5 +25,23 @@ public abstract class Vehiculo
     public void mostrarInfo() 
     {
         System.out.println("Marca: " + marca + ", Modelo: " + modelo);
+    }
+
+    @Override
+    public void arrancar() 
+    {
+        System.out.println("El vehículo está arrancando.");
+    }
+
+    @Override
+    public void acelerar() 
+    {
+        System.out.println("El vehículo está acelerando.");
+    }
+
+    @Override
+    public void frenar() 
+    {
+        System.out.println("El vehículo está frenando.");
     }
 }

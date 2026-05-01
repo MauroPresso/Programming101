@@ -15,25 +15,6 @@ public class Camion extends Vehiculo
         return capacidadCarga;
     }
 
-    // Implementación de métodos de Conducible
-    @Override
-    public void arrancar() 
-    {
-        System.out.println("El camión está arrancando.");
-    }
-
-    @Override
-    public void acelerar() 
-    {
-        System.out.println("El camión está acelerando.");
-    }
-
-    @Override
-    public void frenar() 
-    {
-        System.out.println("El camión está frenando.");
-    }
-
     @Override
     public void mostrarInfo() 
     {

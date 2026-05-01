@@ -11,32 +11,17 @@ public class Main
 
         for (Vehiculo vehiculo : vehiculos) 
         {
-            if(vehiculo instanceof Automovil)
+            vehiculo.mostrarInfo();
+
+            if(vehiculo instanceof Conducible)
             {
-                Automovil automovil = (Automovil) vehiculo;
-                automovil.mostrarInfo();
-                automovil.arrancar();
-                automovil.acelerar();
-                automovil.frenar();
-                System.out.println();
+                ((Conducible) vehiculo).arrancar();
+                ((Conducible) vehiculo).acelerar();
+                ((Conducible) vehiculo).frenar();
             }
-            else if(vehiculo instanceof Motocicleta)
+            else
             {
-                Motocicleta motocicleta = (Motocicleta) vehiculo;
-                motocicleta.mostrarInfo();
-                motocicleta.arrancar();
-                motocicleta.acelerar();
-                motocicleta.frenar();
-                System.out.println();
-            }
-            else if(vehiculo instanceof Camion)
-            {
-                Camion camion = (Camion) vehiculo;
-                camion.mostrarInfo();
-                camion.arrancar();
-                camion.acelerar();
-                camion.frenar();
-                System.out.println();
+                System.out.println(vehiculo.getMarca() + " " + vehiculo.getModelo() + " no es conducible.");
             }
         }
     }

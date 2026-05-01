@@ -1,6 +1,6 @@
 package sistemaDeVehiculos;
 
-public class Automovil extends Vehiculo 
+public class Automovil extends Vehiculo implements Conducible
 {
 
     private int puertas;

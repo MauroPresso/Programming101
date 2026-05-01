@@ -11,6 +11,7 @@ public class Main
 
         for (Vehiculo vehiculo : vehiculos) 
         {
+            System.err.println("-----------------------------");
             vehiculo.mostrarInfo();
 
             if(vehiculo instanceof Conducible)

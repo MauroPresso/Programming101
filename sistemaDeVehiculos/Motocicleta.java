@@ -1,6 +1,6 @@
 package sistemaDeVehiculos;
 
-public class Motocicleta extends Vehiculo 
+public class Motocicleta extends Vehiculo implements Conducible
 {
     private float cilindrada;
 

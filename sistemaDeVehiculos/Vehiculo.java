@@ -1,6 +1,6 @@
 package sistemaDeVehiculos;
 
-public abstract class Vehiculo implements Conducible
+public abstract class Vehiculo 
 {
     private String marca;
     private String modelo;

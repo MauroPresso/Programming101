@@ -55,7 +55,7 @@ public class Biblioteca
                 if (usuario.prestar(libro)) 
                 {
                     librosPrestados[i] = libro;
-                libro.marcarComoPrestado();
+                    libro.marcarComoPrestado();
 
                     System.out.println("La biblioteca registró el préstamo del libro \"" + libro.getTitulo() + "\".");
                 }

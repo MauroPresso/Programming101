@@ -31,25 +31,40 @@ public class Biblioteca
     }   
 
     /*!
-    *    @brief Método para agregar un libro a un usuario y a la biblioteca. 
-    *           Verifica si hay espacio disponible en el arreglo de libros prestados antes de agregar el nuevo libro.
-    *    @param usuario El usuario al que se le desea prestar el libro.
-    *    @param libro El libro que se desea prestar al usuario.
-    */
-    public void agregarLibro(Usuario usuario, Libro libro) 
+     * @brief Método para prestar un libro a un usuario.
+     * 
+     *        Primero verifica si el libro está disponible.
+     *        Luego verifica si hay espacio en el arreglo de libros prestados de la biblioteca.
+     *        Si el usuario puede recibir el libro, se registra el préstamo y el libro cambia su estado a PRESTADO.
+     * 
+     * @param usuario Usuario al que se le desea prestar el libro.
+     * @param libro Libro que se desea prestar.
+     */
+    public void prestarLibro(Usuario usuario, Libro libro) 
     {
+        if (libro.getEstado() == EstadoLibro.PRESTADO) 
+        {
+            System.out.println("No se puede prestar el libro \"" + libro.getTitulo() + "\" porque ya está prestado.");
+            return;
+        }
+
         for (int i = 0; i < librosPrestados.length; i++) 
         {
             if (librosPrestados[i] == null) 
             {
-                if (usuario.prestar(libro)) // Intenta agregar el libro al usuario. Si el usuario tiene espacio para más libros, se agrega el libro a la biblioteca.
+                if (usuario.prestar(libro)) 
                 {
-                    librosPrestados[i] = libro; // Agrega el libro al arreglo de libros prestados de la biblioteca.
+                    librosPrestados[i] = libro;
+                libro.marcarComoPrestado();
+
+                    System.out.println("La biblioteca registró el préstamo del libro \"" + libro.getTitulo() + "\".");
                 }
+
                 return;
             }
         }
-        System.out.println("No se pudo prestar el libro " + libro.getTitulo() + " a " + usuario.getNombre() + ". La biblioteca no tiene más espacio para libros prestados.");
+
+        System.out.println("No se pudo prestar el libro \"" + libro.getTitulo() + "\". La biblioteca no tiene más espacio para registrar préstamos.");
     }
     
     /*!

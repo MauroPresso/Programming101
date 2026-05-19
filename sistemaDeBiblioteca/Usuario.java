@@ -4,7 +4,6 @@ public class Usuario
 {
     private String nombre;
     private Libro[] librosPrestados;
-    private int cantidadMaximaLibros; // Cantidad máxima de libros que un usuario puede tener prestados.
     
     public Usuario(String nombre, int cantidadMaximaLibros) 
     {
@@ -13,7 +12,6 @@ public class Usuario
         {
             cantidadMaximaLibros = 1; // Establece un valor predeterminado si la cantidad máxima de libros es inválida.
         }
-        this.cantidadMaximaLibros = cantidadMaximaLibros;
         this.librosPrestados = new Libro[cantidadMaximaLibros]; // Inicializa el arreglo de libros con la capacidad máxima.
     }
 
@@ -23,38 +21,41 @@ public class Usuario
     }
 
     /*!
-     *    @brief Método para prestar un libro a un usuario. 
-     *           Verifica si el usuario ha alcanzado su límite de libros prestados antes de agregar el libro al arreglo de libros prestados.
-     *    @param libro El libro que se desea prestar al usuario.
-     *    @return true si el libro fue prestado exitosamente, false si el usuario ha alcanzado su límite de libros prestados.
+     * @brief Método para prestar un libro al usuario.
+     * 
+     *        Verifica que el usuario no tenga ya prestado el mismo libro.
+     *        Luego verifica si tiene espacio disponible dentro de su límite máximo de libros.
+     *        Si hay espacio, agrega el libro al arreglo de libros prestados del usuario.
+     * 
+     * @param libro Libro que se desea prestar al usuario.
+     * @return true si el libro pudo prestarse correctamente, false en caso contrario.
      */
     public boolean prestar(Libro libro)
     {
-        int librosPrestadosCount = 0;
+        // Verifica si el usuario ya tiene prestado el mismo libro.
         for (Libro libroPrestado : librosPrestados) 
         {
-            if (libroPrestado != null) 
+            if (libroPrestado == libro) 
             {
-                librosPrestadosCount++;
+                System.out.println("El usuario " + nombre + " ya tiene prestado el libro \"" + libro.getTitulo() + "\".");
+                return false;
             }
         }
 
-        if(librosPrestadosCount >= cantidadMaximaLibros)
-        {
-            System.out.println("No se puede prestar el libro " + libro.getTitulo() + " a " + nombre + ". El usuario ha alcanzado su límite de libros prestados.");
-            return false;
-        }
-        
+        // Busca un espacio libre en el arreglo de libros prestados.
         for (int i = 0; i < librosPrestados.length; i++) 
         {
             if (librosPrestados[i] == null) 
             {
-                librosPrestados[i] = libro; // Agrega el libro al arreglo de libros prestados del usuario.
-                System.out.println("Libro " + libro.getTitulo() + " prestado a " + nombre + ".");
-                return true; // Sale del bucle después de agregar el libro. Para que no se agregue el mismo libro varias veces si hay espacio para más de un libro.
+                librosPrestados[i] = libro;
+                System.out.println("Libro \"" + libro.getTitulo() + "\" prestado a " + nombre + ".");
+                return true;
             }
         }
-        return false; 
+
+        // Si no encontró ningún espacio libre, el usuario alcanzó su límite.
+        System.out.println("No se puede prestar el libro \"" + libro.getTitulo() + "\" a " + nombre + ". El usuario alcanzó su límite de libros prestados.");
+        return false;
     }
 
     /*!

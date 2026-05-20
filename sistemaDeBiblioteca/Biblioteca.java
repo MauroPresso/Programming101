@@ -68,6 +68,34 @@ public class Biblioteca
     }
     
     /*!
+     * @brief Método para devolver un libro prestado por un usuario.
+     * 
+     *        Primero solicita al usuario que devuelva el libro.
+     *        Si la devolución fue correcta, elimina el libro del arreglo de libros prestados
+     *        de la biblioteca y cambia su estado a DISPONIBLE.
+     * 
+     * @param usuario Usuario que devuelve el libro.
+     * @param libro Libro que se desea devolver.
+     */
+    public void devolverLibro(Usuario usuario, Libro libro)
+    {
+        if (usuario.devolver(libro))
+        {
+            for (int i = 0; i < librosPrestados.length; i++) 
+            {
+                if (librosPrestados[i] == libro) 
+                {
+                    librosPrestados[i] = null;
+                    libro.marcarComoDisponible();
+
+                    System.out.println("El libro \"" + libro.getTitulo() + "\" quedó disponible nuevamente en la biblioteca.");
+                    return;
+                }
+            }
+        }
+    }
+
+    /*!
      *    @brief Método para mostrar el estado actual de la biblioteca, incluyendo los libros prestados y los usuarios registrados.
      */
     public void mostrarEstado()

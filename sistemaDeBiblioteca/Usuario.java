@@ -30,7 +30,8 @@ public class Usuario
      * @param libro Libro que se desea prestar al usuario.
      * @return true si el libro pudo prestarse correctamente, false en caso contrario.
      */
-    public boolean prestar(Libro libro)
+   
+    boolean prestar(Libro libro)
     {
         // Verifica si el usuario ya tiene prestado el mismo libro.
         for (Libro libroPrestado : librosPrestados) 
@@ -67,7 +68,7 @@ public class Usuario
      * @param libro Libro que el usuario desea devolver.
      * @return true si el libro fue devuelto correctamente, false si el usuario no tenía ese libro.
      */
-    public boolean devolver(Libro libro)
+    boolean devolver(Libro libro)
     {
         for (int i = 0; i < librosPrestados.length; i++) 
         {

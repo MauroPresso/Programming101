@@ -55,7 +55,7 @@ public class Libro
     /*!
      * @brief Marca el libro como prestado.
      */
-    public void marcarComoPrestado()
+    void marcarComoPrestado()
     {
         this.estado = EstadoLibro.PRESTADO;
     }
@@ -63,7 +63,7 @@ public class Libro
     /*!
      * @brief Marca el libro como disponible.
      */
-    public void marcarComoDisponible()
+    void marcarComoDisponible()
     {
         this.estado = EstadoLibro.DISPONIBLE;
     }

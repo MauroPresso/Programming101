@@ -59,6 +59,31 @@ public class Usuario
     }
 
     /*!
+     * @brief Método para devolver un libro prestado por el usuario.
+     * 
+     *        Busca el libro dentro del arreglo de libros prestados del usuario.
+     *        Si lo encuentra, elimina la referencia colocando null en esa posición.
+     * 
+     * @param libro Libro que el usuario desea devolver.
+     * @return true si el libro fue devuelto correctamente, false si el usuario no tenía ese libro.
+     */
+    public boolean devolver(Libro libro)
+    {
+        for (int i = 0; i < librosPrestados.length; i++) 
+        {
+            if (librosPrestados[i] == libro) 
+            {
+                librosPrestados[i] = null;
+                System.out.println("El usuario " + nombre + " devolvió el libro \"" + libro.getTitulo() + "\".");
+                return true;
+            }
+        }
+
+        System.out.println("El usuario " + nombre + " no tiene prestado el libro \"" + libro.getTitulo() + "\".");
+        return false;
+    }
+
+    /*!
      *    @brief Método para mostrar los libros prestados a un usuario. 
      *           Recorre el arreglo de libros prestados y muestra el título y autor de cada libro que no sea nulo.
      */

@@ -2,13 +2,15 @@ package sistemaDeBiblioteca;
 
 public class Biblioteca 
 {
+    private Libro[] catalogoLibros;
     private Libro[] librosPrestados;
     private Usuario[] usuarios;
 
-    public Biblioteca(Libro[] librosPrestados, Usuario[] usuarios) 
+    public Biblioteca(Libro[] catalogoLibros, Libro[] librosPrestados, Usuario[] usuarios) 
     {
         this.librosPrestados = librosPrestados;
         this.usuarios = usuarios;
+        this.catalogoLibros = catalogoLibros;
     }
 
     /*!
@@ -31,6 +33,54 @@ public class Biblioteca
     }   
 
     /*!
+     * @brief Método para agregar un libro al catálogo de la biblioteca.
+     * 
+     *        Verifica si hay espacio disponible en el arreglo de catálogo.
+     *        También evita agregar dos veces el mismo libro.
+     * 
+     * @param libro Libro que se desea agregar al catálogo.
+     */
+    public void agregarLibroAlCatalogo(Libro libro)
+    {
+        if (libroEstaEnCatalogo(libro))
+        {
+            System.out.println("El libro \"" + libro.getTitulo() + "\" ya está en el catálogo de la biblioteca.");
+            return;
+        }
+
+        for (int i = 0; i < catalogoLibros.length; i++) 
+        {
+            if (catalogoLibros[i] == null) 
+            {
+                catalogoLibros[i] = libro;
+                System.out.println("Libro \"" + libro.getTitulo() + "\" agregado al catálogo de la biblioteca.");
+                return;
+            }
+        }
+
+        System.out.println("No se pudo agregar el libro \"" + libro.getTitulo() + "\". El catálogo está lleno.");
+    }
+
+    /*!
+     * @brief Método auxiliar para verificar si un libro pertenece al catálogo de la biblioteca.
+     * 
+     * @param libro Libro que se desea buscar.
+     * @return true si el libro está en el catálogo, false en caso contrario.
+     */
+    private boolean libroEstaEnCatalogo(Libro libro)
+    {
+        for (Libro libroCatalogo : catalogoLibros) 
+        {
+            if (libroCatalogo == libro) 
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /*!
      * @brief Método para prestar un libro a un usuario.
      * 
      *        Primero verifica si el libro está disponible.
@@ -42,6 +92,12 @@ public class Biblioteca
      */
     public void prestarLibro(Usuario usuario, Libro libro) 
     {
+        if (!libroEstaEnCatalogo(libro))
+        {
+            System.out.println("No se puede prestar el libro \"" + libro.getTitulo() + "\" porque no pertenece al catálogo de la biblioteca.");
+            return;
+        }
+        
         if (libro.getEstado() == EstadoLibro.PRESTADO) 
         {
             System.out.println("No se puede prestar el libro \"" + libro.getTitulo() + "\" porque ya está prestado.");
@@ -67,6 +123,31 @@ public class Biblioteca
         System.out.println("No se pudo prestar el libro \"" + libro.getTitulo() + "\". La biblioteca no tiene más espacio para registrar préstamos.");
     }
     
+    /*!
+     * @brief Método para mostrar todos los libros registrados en el catálogo de la biblioteca.
+     */
+    public void mostrarCatalogo()
+    {
+        System.out.println("Catálogo de libros:");
+
+        boolean hayLibros = false;
+
+        for (Libro libro : catalogoLibros) 
+        {
+            if (libro != null) 
+            {
+                hayLibros = true;
+                libro.mostrarInfo();
+                System.out.println();
+            }
+        }
+
+        if (!hayLibros) 
+        {
+            System.out.println("No hay libros en el catálogo.");
+        }
+    }
+
     /*!
      * @brief Método para devolver un libro prestado por un usuario.
      * 
